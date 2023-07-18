@@ -19,21 +19,19 @@ const searchingIcon = <MaterialCommunityIcons name={"map-marker-question-outline
 
 var Sound = require('react-native-sound');
 
-
 Sound.setCategory('Playback');
-
 
 var ding = new Sound('mixkit_cartoon_kitty_begging_meow_92.wav', Sound.MAIN_BUNDLE, (error) => {
   if (error) {
     console.log('failed to load the sound', error);
     return;
   }
-  // if loaded successfully
   console.log('duration in seconds: ' + ding.getDuration() + 'number of channels: ' + ding.getNumberOfChannels());
-
 });
+
 const App = () => {
   const [playing, setPlaying] = useState(false);
+
   useEffect(() => {
     ding.setVolume(1);
     return () => {
@@ -43,14 +41,11 @@ const App = () => {
 
 
   const play = () => {
-    setPlaying(!playing);
     if (!playing) {
       setPlaying(true);
       const cb = (success: any) => {
         if (success) {
-          console.log("playing", playing);
           ding.play(cb);
-          console.log('successfully finished playing');
         } else {
           console.error('playback failed due to audio decoding errors');
         }
@@ -61,26 +56,21 @@ const App = () => {
       setPlaying(false);
       ding.stop();
     }
-
-
   };
+
+  const FoundedButton = <TouchableOpacity style={styles.playBtn} onPress={play}>
+    {searchingIcon}
+    <Text style={styles.text}>Touch if found!</Text>
+  </TouchableOpacity>;
+
+  const FindButton = <TouchableOpacity style={styles.playBtn} onPress={play}>
+    {catIcon}
+    <Text style={styles.text}>Touch to find cat</Text>
+  </TouchableOpacity>;
 
   return (
     <View style={styles.container}>
-      {playing ? <TouchableOpacity style={styles.playBtn} onPress={play}>
-        {searchingIcon}
-        <Text style={styles.text}  >Touch if found!</Text>
-      </TouchableOpacity> :
-
-
-        <TouchableOpacity style={styles.playBtn} onPress={play}>
-
-          {catIcon}
-          <Text style={styles.text} >Touch to find cat</Text>
-
-        </TouchableOpacity>
-
-      }
+      {playing ? FoundedButton : FindButton}
     </View>
   );
 };
