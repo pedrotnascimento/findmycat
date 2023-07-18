@@ -8,6 +8,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Animated,
+  Dimensions,
   Easing,
   StyleSheet,
   Text,
@@ -48,9 +49,17 @@ for (let i = 1; i <= TOTAL_CAT_SOUNDS; i++) {
 const getRandomCatSoundInx = (limit) => {
   return Math.floor(Math.random() * limit);
 };
+
 const randomStartingInx = getRandomCatSoundInx(TOTAL_CAT_SOUNDS);
-const randomCatX = getRandomCatSoundInx(100);
-const randomCatY = getRandomCatSoundInx(100);
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const randomCatX = getRandomCatSoundInx(windowWidth);
+const randomCatY = getRandomCatSoundInx(windowHeight);
+
+
+let circleAnimationInterval;
 
 const App = () => {
   const [playing, setPlaying] = useState(false);
@@ -67,7 +76,7 @@ const App = () => {
     };
   }, []);
 
-  let circleAnimationInterval;
+
   let currSound;
   const play = () => {
 
@@ -83,7 +92,7 @@ const App = () => {
           bounciness: 100,
         }
       ).start();
-      console.log("new circle");
+
       Animated.timing(
         dynamicCircle,
         {
@@ -94,8 +103,8 @@ const App = () => {
       ).start();
 
       circleAnimationInterval = setInterval(() => {
-        setCatX(getRandomCatSoundInx(100))
-        setCatY(getRandomCatSoundInx(100))
+        setCatX(getRandomCatSoundInx(windowWidth));
+        setCatY(getRandomCatSoundInx(windowHeight));
 
         Animated.timing(
           dynamicCircle,
@@ -125,16 +134,16 @@ const App = () => {
           const nextSound = catSounds[nextInx];
           currSound.stop();
           currSound = nextSound;
+
           setSoundInx(nextInx);
           nextSound.play(cb);
         } else {
           console.error('playback failed due to audio decoding errors');
         }
       };
-      currSound.play(cb);
+     currSound.play(cb);
     }
     else {
-      setPlaying(false);
       Animated.timing(
         dynamicCircle,
         {
@@ -155,10 +164,11 @@ const App = () => {
           speed: 1,
           bounciness: 100,
         }
-      ).start();
+      ).start(() => {
+        setPlaying(false);
+      });
 
 
-      console.log("stoped", currSound);
       currSound = catSounds[soundInx];
       currSound.stop();
     }
@@ -184,29 +194,33 @@ const App = () => {
   });
 
   return (
-    // <View style={styles.container}>
-    <Animated.View style={{ ...styles.container, backgroundColor: color }}>
-      {playing ? FoundedButton : FindButton}
-      {playing &&
-        <><Animated.View style={{
-          zIndex: -1,
-          borderRadius: 50, borderWidth: 2,
-          backgroundColor: "transparent", borderColor: "green",
-          width: 10, height: 10, transform: [{ scale: bandth }]
-        }}>
-        </Animated.View>
-          <View style={{zIndex:-2, top: catY, left: catX,
-             }}>
-            <MaterialCommunityIcons name={"cat"} size={32} color={"green"} />
-          </View></>}
-      {/* </View> */}
-    </Animated.View>
+    <>
+      <Animated.View style={{ ...styles.container, zIndex: 0, backgroundColor: color }}>
+        {playing ? FoundedButton : FindButton}
+        {playing &&
+          <><Animated.View style={{
+            zIndex: -4,
+            borderRadius: 50, borderWidth: 2,
+            backgroundColor: "transparent", borderColor: "green",
+            width: 10, height: 10, transform: [{ scale: bandth }]
+          }}>
+          </Animated.View>
+            <View style={{
+              zIndex: -3, position: 'absolute', height: "100%", width: "100%", top: catY, left: catX, backgroundColor: "transparent"
+            }}>
+              <MaterialCommunityIcons name={"cat"} size={32} color={"green"} />
+            </View>
+          </>}
+        {/* </View> */}
+      </Animated.View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
+    width: "100%",
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
