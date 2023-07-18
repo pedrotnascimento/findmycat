@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:JSON.parse("{\"uzTaYi\":\"Hello!\",\"Q1AIqX\":\"Touch if you found your cat!\",\"LEaQwt\":\"Touch to find your cat!\"}")};
