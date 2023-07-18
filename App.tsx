@@ -19,6 +19,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const catIcon = <MaterialCommunityIcons name={"cat"} size={128} />;
 const searchingIcon = <MaterialCommunityIcons name={"map-marker-question-outline"} size={128} color={"green"} />;
 
+
 var Sound = require('react-native-sound');
 
 Sound.setCategory('Playback');
@@ -44,23 +45,20 @@ for (let i = 1; i <= TOTAL_CAT_SOUNDS; i++) {
   catSounds.push(cat);
 
 }
-const getRandomCatSoundInx = () => {
-  return Math.floor(Math.random() * TOTAL_CAT_SOUNDS);
+const getRandomCatSoundInx = (limit) => {
+  return Math.floor(Math.random() * limit);
 };
-const randomStartingInx = getRandomCatSoundInx();
+const randomStartingInx = getRandomCatSoundInx(TOTAL_CAT_SOUNDS);
+const randomCatX = getRandomCatSoundInx(100);
+const randomCatY = getRandomCatSoundInx(100);
 
 const App = () => {
   const [playing, setPlaying] = useState(false);
-  // const [soundInx, setSoundInx] = useState(randomStartingInx);
-  // console.log(soundInx);
+  const [soundInx, setSoundInx] = useState(randomStartingInx);
   const [dynamicBackgroundColor, setX] = useState(new Animated.Value(0));
   const [dynamicCircle, _] = useState(new Animated.Value(0));
-  // Animated.timing(dynamicCircle, {
-  //   toValue: 1,
-  //   duration: 500,
-  //   easing: Easing.linear,
-  //   useNativeDriver: false  // <-- neccessary
-  // });
+  const [catX, setCatX] = useState(randomCatX);
+  const [catY, setCatY] = useState(randomCatY);
 
   useEffect(() => {
     ding.setVolume(1);
@@ -70,78 +68,64 @@ const App = () => {
   }, []);
 
   let circleAnimationInterval;
+  let currSound;
   const play = () => {
-    let currSound = catSounds[randomStartingInx];
+
 
     if (!playing) {
+      currSound = catSounds[soundInx];
       setPlaying(true);
       Animated.spring(
         dynamicBackgroundColor,
         {
-
           toValue: 1, useNativeDriver: true,
           speed: 1,
           bounciness: 100,
         }
       ).start();
-      // const toggleCircle;
-
       console.log("new circle");
       Animated.timing(
         dynamicCircle,
         {
-
-          toValue: 100,
+          toValue: 1,
           useNativeDriver: true,
-          // speed: 0.001,
           duration: 3000,
-
-          // bounciness: 100,
-
         }
       ).start();
-      
-      setInterval(() => {
+
+      circleAnimationInterval = setInterval(() => {
+        setCatX(getRandomCatSoundInx(100))
+        setCatY(getRandomCatSoundInx(100))
 
         Animated.timing(
           dynamicCircle,
           {
-
             toValue: 0,
             useNativeDriver: true,
-            // speed: 0.001,
             duration: 1,
-
-            // bounciness: 100,
-
           }
         ).start(() => {
           Animated.timing(
             dynamicCircle,
             {
-
-              toValue: 100,
+              toValue: 1,
               useNativeDriver: true,
-              // speed: 0.001,
               duration: 3000,
-
-              // bounciness: 100,
-
             }
           ).start();
         });
       }, 5000);
 
 
-
-
       const cb = (success: any) => {
 
         if (success) {
-          const nextInx = getRandomCatSoundInx();
+          const nextInx = getRandomCatSoundInx(TOTAL_CAT_SOUNDS);
 
           const nextSound = catSounds[nextInx];
+          currSound.stop();
           currSound = nextSound;
+          setSoundInx(nextInx);
           nextSound.play(cb);
         } else {
           console.error('playback failed due to audio decoding errors');
@@ -151,7 +135,18 @@ const App = () => {
     }
     else {
       setPlaying(false);
-      clearInterval(circleAnimationInterval);
+      Animated.timing(
+        dynamicCircle,
+        {
+          toValue: 0,
+          useNativeDriver: true,
+          duration: 1,
+        }
+      ).start(() => {
+        clearInterval(circleAnimationInterval);
+      });
+
+
       Animated.spring(
         dynamicBackgroundColor,
         {
@@ -161,6 +156,10 @@ const App = () => {
           bounciness: 100,
         }
       ).start();
+
+
+      console.log("stoped", currSound);
+      currSound = catSounds[soundInx];
       currSound.stop();
     }
   };
@@ -180,15 +179,26 @@ const App = () => {
   });
 
   var bandth = dynamicCircle.interpolate({
-    inputRange: [0, 10],
-    outputRange: [1, 50]
+    inputRange: [0, 1],
+    outputRange: [0, 300]
   });
 
   return (
     // <View style={styles.container}>
     <Animated.View style={{ ...styles.container, backgroundColor: color }}>
       {playing ? FoundedButton : FindButton}
-      <Animated.View style={{ zIndex: -1, borderRadius: 50, borderWidth: 2, backgroundColor: "transparent", borderColor: "green", width: 10, height: 10, transform: [{ scale: bandth }] }}></Animated.View>
+      {playing &&
+        <><Animated.View style={{
+          zIndex: -1,
+          borderRadius: 50, borderWidth: 2,
+          backgroundColor: "transparent", borderColor: "green",
+          width: 10, height: 10, transform: [{ scale: bandth }]
+        }}>
+        </Animated.View>
+          <View style={{zIndex:-2, top: catY, left: catX,
+             }}>
+            <MaterialCommunityIcons name={"cat"} size={32} color={"green"} />
+          </View></>}
       {/* </View> */}
     </Animated.View>
   );
