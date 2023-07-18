@@ -29,9 +29,28 @@ var ding = new Sound('mixkit_cartoon_kitty_begging_meow_92.wav', Sound.MAIN_BUND
   console.log('duration in seconds: ' + ding.getDuration() + 'number of channels: ' + ding.getNumberOfChannels());
 });
 
+const catSounds: any[] = [];
+const TOTAL_CAT_SOUNDS = 13;
+for (let i = 1; i <= TOTAL_CAT_SOUNDS; i++) {
+  const cat = new Sound(`cat${i}.mp3`, Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    console.log('duration in seconds: ' + ding.getDuration() + 'number of channels: ' + ding.getNumberOfChannels());
+  });
+  catSounds.push(cat);
+
+}
+const getRandomCatSoundInx = ()=>{
+  return Math.floor(Math.random()*TOTAL_CAT_SOUNDS);
+}
+const randomStartingInx = getRandomCatSoundInx();
+
 const App = () => {
   const [playing, setPlaying] = useState(false);
-
+  const [soundInx, setSoundInx] = useState(randomStartingInx);
+ console.log(soundInx);
   useEffect(() => {
     ding.setVolume(1);
     return () => {
@@ -41,20 +60,27 @@ const App = () => {
 
 
   const play = () => {
+    let currSound = catSounds[soundInx];
+    
     if (!playing) {
       setPlaying(true);
       const cb = (success: any) => {
+
         if (success) {
-          ding.play(cb);
+          const nextInx =getRandomCatSoundInx();
+          
+          const nextSound = catSounds[nextInx];
+          currSound = nextSound;
+          nextSound.play(cb);
         } else {
           console.error('playback failed due to audio decoding errors');
         }
       };
-      ding.play(cb);
+      currSound.play(cb);
     }
     else {
       setPlaying(false);
-      ding.stop();
+      currSound.stop();
     }
   };
 
