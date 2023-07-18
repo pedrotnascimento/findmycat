@@ -81,11 +81,12 @@ To learn more about React Native, take a look at the following resources:
 
 # Next Features:
 
-- get a lot of cat sounds that may attract the cats
+- get a lot of cat sounds that may attract the cats [V]
+
 - set a dark background like a submarine sonar when the app its trying to find the cat 
    - it can be a gif
 - set random cute cats background that changes over time
-- create a cat shape button to active the cat sounds 
+- create a cat shape button to active the cat sounds  [V]
    - it can be at least a rounded face with two triangles for the ears
    - when the app is trying to find the cat, the shape goes dark and outlined green, like a sonar sub 
 
