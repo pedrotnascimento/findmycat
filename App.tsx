@@ -6,31 +6,16 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import type { PropsWithChildren } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+const catIcon = <MaterialCommunityIcons name={"cat"} size={128} />;
+const searchingIcon = <MaterialCommunityIcons name={"map-marker-question-outline"} size={128} />;
 
 var Sound = require('react-native-sound');
 
@@ -56,11 +41,9 @@ const App = () => {
     };
   }, []);
 
-  let interval;
-  const play = () => {
 
+  const play = () => {
     setPlaying(!playing);
-    const playSound = ding.play;
     if (!playing) {
       setPlaying(true);
       const cb = (success: any) => {
@@ -69,10 +52,9 @@ const App = () => {
           ding.play(cb);
           console.log('successfully finished playing');
         } else {
-          console.log('playback failed due to audio decoding errors');
+          console.error('playback failed due to audio decoding errors');
         }
       };
-      // playSound(cb);
       ding.play(cb);
     }
     else {
@@ -86,11 +68,19 @@ const App = () => {
   return (
     <View style={styles.container}>
       {playing ? <TouchableOpacity style={styles.playBtn} onPress={play}>
-        <Text > "Touch if found!" </Text>
+        {searchingIcon}
+        <Text style={styles.text}  >Touch if found!</Text>
       </TouchableOpacity> :
+
+
         <TouchableOpacity style={styles.playBtn} onPress={play}>
-          <Text > "Touch to find cat"</Text>
-        </TouchableOpacity>}
+
+          {catIcon}
+          <Text style={styles.text} >Touch to find cat</Text>
+
+        </TouchableOpacity>
+
+      }
     </View>
   );
 };
@@ -103,7 +93,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   playBtn: {
-    padding: 20,
+    // padding: 20,
   },
+  text: {
+    textAlign: "center"
+  }
 });
 export default App;

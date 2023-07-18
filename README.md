@@ -77,3 +77,15 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+# Next Features:
+
+- get a lot of cat sounds that may attract the cats
+- set a dark background like a submarine sonar when the app its trying to find the cat 
+   - it can be a gif
+- set random cute cats background that changes over time
+- create a cat shape button to active the cat sounds 
+   - it can be at least a rounded face with two triangles for the ears
+   - when the app is trying to find the cat, the shape goes dark and outlined green, like a sonar sub 
+
