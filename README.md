@@ -85,13 +85,14 @@ To learn more about React Native, take a look at the following resources:
    - bird mode [ ]
    - cat food sound [ ]
    - pssss sound [ ]
-- internationalization [ ]
 - about session with donate to the cat [ ]
+- apply google ads [ ]
 - improve font family and style [ ]
 - gif and video in the readme [ ]
 
 
 # Done:
+- internationalization [V]
 - get a lot of cat sounds that may attract the cats [V]
 - set a dark background like a submarine sonar when the app its trying to find the cat [V]
 - set random cute cats background that changes over time [X] => no, seems like distracting
