@@ -92,6 +92,7 @@ To learn more about React Native, take a look at the following resources:
 
 
 # Done:
+- cleaned the code [V]
 - internationalization [V]
 - get a lot of cat sounds that may attract the cats [V]
 - set a dark background like a submarine sonar when the app its trying to find the cat [V]
