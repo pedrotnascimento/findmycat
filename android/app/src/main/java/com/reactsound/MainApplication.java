@@ -1,4 +1,4 @@
-package com.reactsound;
+package com.findMyCat;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

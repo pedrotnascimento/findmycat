@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.reactsound"
+    namespace "com.findMyCat"
     defaultConfig {
-        applicationId "com.reactsound"
+        applicationId "com.findMyCat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
