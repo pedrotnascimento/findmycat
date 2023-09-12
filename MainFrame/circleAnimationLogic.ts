@@ -43,9 +43,10 @@ export const endCircleRoutine = (dynamicCircle, circleAnimationInterval )=>{
         {
           toValue: 0,
           useNativeDriver: true,
-          duration: 1,
+          duration: 0,
         }
       ).start(() => {
+        
         clearInterval(circleAnimationInterval);
       });
 }

@@ -66,7 +66,7 @@ export const MainFrame = () => {
     circleAnimationInterval = setInterval(() => {
       setCatX(getRandomCatSoundInx(windowWidth));
       setCatY(getRandomCatSoundInx(windowHeight));
-
+      
       circleClose(dynamicCircle);
     }, 5000);
   }
@@ -74,8 +74,8 @@ export const MainFrame = () => {
   function pauseRoutine() {
     endCircleRoutine(dynamicCircle, circleAnimationInterval);
 
+    setPlaying(false);
     toggleBackgroundFound(dynamicBackgroundColor, () => {
-      setPlaying(false);
     });
 
     currSound = catSounds[soundInx];
