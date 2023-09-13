@@ -16,3 +16,6 @@ msgstr "Touch if you found your cat!"
 
 msgid "touch_to_find"
 msgstr "Touch to find your cat!"
+
+msgid "header_title"
+msgstr "Find my cat"

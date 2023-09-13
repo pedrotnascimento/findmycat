@@ -15,4 +15,7 @@ msgid "touch_found"
 msgstr "Toque se você encontrou seu gato!"
 
 msgid "touch_to_find"
-msgstr "Toque para encontrar gato!"
+msgstr "Toque para encontrar o gato!"
+
+msgid "header_title"
+msgstr "Encontre meu gato"

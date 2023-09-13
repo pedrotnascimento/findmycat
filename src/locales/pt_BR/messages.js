@@ -1,1 +1,1 @@
-/*eslint-disable*/module.exports={messages:JSON.parse("{\"uzTaYi\":\"Olá\",\"Q1AIqX\":\"Toque se você encontrou seu gato!\",\"LEaQwt\":\"Toque para encontrar gato!\"}")};
+/*eslint-disable*/module.exports={messages:JSON.parse("{\"uzTaYi\":\"Olá\",\"Q1AIqX\":\"Toque se você encontrou seu gato!\",\"LEaQwt\":\"Toque para encontrar o gato!\",\"ZtUEtH\":\"Encontre meu gato\"}")};

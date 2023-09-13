@@ -1,4 +1,4 @@
-import { Animated, Dimensions, StyleSheet } from "react-native";
+import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
 import { FoundedButton } from "../FoundedButton";
 import { useState } from "react";
 import { FindButton } from "../FindButton";
@@ -6,7 +6,8 @@ import { toggleFinding as toggleBackgroundFinding, toggleFound as toggleBackgrou
 import { firstCircleIteration, circleClose, endCircleRoutine } from "./circleAnimationLogic";
 import { TOTAL_CAT_SOUNDS, catSounds, getNextCatSound } from "./soundLogic";
 import { getRandomCatSoundInx } from "./utils";
-  
+import { Trans } from "@lingui/macro";
+
 const randomStartingInx = getRandomCatSoundInx(TOTAL_CAT_SOUNDS);
 
 const windowWidth = Dimensions.get('window').width;
@@ -55,7 +56,7 @@ export const MainFrame = () => {
         nextSound.play(getNextSound);
       } else {
         console.error('playback failed due to audio decoding errors');
-      }        
+      }
     };
     currSound.play(getNextSound);
   }
@@ -66,7 +67,7 @@ export const MainFrame = () => {
     circleAnimationInterval = setInterval(() => {
       setCatX(getRandomCatSoundInx(windowWidth));
       setCatY(getRandomCatSoundInx(windowHeight));
-      
+
       circleClose(dynamicCircle);
     }, 5000);
   }
@@ -89,6 +90,11 @@ export const MainFrame = () => {
 
   return (
     <>
+      <View style={{ backgroundColor: "#ff96c5", height: "10%", justifyContent: "center" }}>
+        <Text style={{ textAlign: "center", textTransform: "uppercase", color: "white", fontWeight: "800" }}>
+          <Trans>header_title</Trans>
+        </Text>
+      </View>
       <Animated.View style={{ ...styles.container, zIndex: 0, backgroundColor: color }}>
         {playing ? <FoundedButton dynamicCircle={dynamicCircle} play={play} catX={catX} catY={catY} /> : <FindButton play={play} />}
       </Animated.View>

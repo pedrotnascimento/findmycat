@@ -3,12 +3,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Trans } from '@lingui/macro';
 
 export const FindButton = ({ play }) => {
-    const catIcon = <MaterialCommunityIcons name={"cat"} size={128} />;
+    const colorFont = "#37acfd";
+    const catIcon = <MaterialCommunityIcons name={"cat"} size={128}  color={colorFont}  />;
     
     return <TouchableOpacity style={styles.playBtn
     } onPress={play} >
         {catIcon}
-        < Text style={styles.text} > <Trans>touch_to_find </Trans></Text >
+        < Text style={{...styles.text, color: colorFont}}  > <Trans>touch_to_find </Trans></Text >
     </TouchableOpacity >;
 };
 
