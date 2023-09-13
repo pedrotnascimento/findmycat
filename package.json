@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "extract": "lingui extract",
-    "compile": "lingui compile"
+    "compile": "lingui compile",
+    "buildApkTest": "cd android && del encontre_meu_gato.apks  &&  gradlew bundleRelease && java -jar bundletool-all-1.15.4.jar build-apks --bundle=\"C:\\repo\\react-native apps\\find-my-cat\\android\\app\\build\\outputs\\bundle\\release\\app-release.aab\" --output=\"encontre_meu_gato.apks\" --ks=app\\my-upload-key.keystore --ks-key-alias=\"my-key-alias\" --mode=universal && tar -xf encontre_meu_gato.apks" 
   },
   "dependencies": {
     "@lingui/react": "^4.3.0",
